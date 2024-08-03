@@ -6,6 +6,16 @@ export const exerciseOptions = {
 		'x-rapidapi-key': import.meta.env.VITE_RAPID_API_KEY
 	}
 };
+// export const exerciseOptions = {
+// 	method: 'GET',
+// 	hostname: 'exercisedb.p.rapidapi.com',
+// 	port: null,
+// 	path: '/status',
+// 	headers: {
+// 		'x-rapidapi-key': 'da1cbfd370mshb124ecd85e16eeap19011ejsn5e190d20f400',
+// 		'x-rapidapi-host': 'exercisedb.p.rapidapi.com'
+// 	}
+// };
 
 export const fetchData= (url,options)=>{
 return fetch(url,options).

@@ -7,7 +7,7 @@ const ContextProvider = ({children}) => {
     const [exercises, setExercises] = useState([])
   return (
     
-    <Context.Provider value={{bodyPart,setExercises,setBodyPart}}>
+    <Context.Provider value={{bodyPart,exercises,setExercises,setBodyPart}}>
         {children}
     </Context.Provider>
   )

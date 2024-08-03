@@ -15,7 +15,6 @@ const SearchExercises = () => {
   fetchData('https://exercisedb.p.rapidapi.com/exercises/bodyPartList', exerciseOptions).
   then(bodyPartsData =>  setBodyParts(['all',...bodyPartsData])).
   catch(error=>console.log(error))
-  console.log(bodyParts)
 }
 
   fetchExercisesCat()
@@ -24,26 +23,49 @@ const SearchExercises = () => {
  }, [])
  
 
-  const handleSearch= ()=>{
-    console.log('API Key:', import.meta.env.VITE_RAPID_API_KEY);
+ const handleSearch = () => {
+  console.log('API Key:', import.meta.env.VITE_RAPID_API_KEY);
 
-    if (search) {
-      fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions)
-          .then(exerciseData => {
-             const searchedExercises= exerciseData.filter(ex=>ex.name.toLowerCase.includes(search)) ||
-              exerciseData.filter(ex=>ex.target.toLowerCase.includes(search)) ||
-              exerciseData.filter(ex=>ex.bodypart.toLowerCase.includes(search)) ||
-              exerciseData.filter(ex=>ex.equipment.toLowerCase.includes(search)) 
+  if (search) {
+    fetchData('https://exercisedb.p.rapidapi.com/exercises', exerciseOptions)
+      .then(exerciseData => {
+        console.log('Fetched Data:', exerciseData);
+        console.log(exerciseData.filter(
+          (item) =>item.name.includes(search) ))
 
-              setExercises('')
-              setExercises(searchedExercises)
-              console.log('Exercise Data:', exerciseData);
-          })
-          .catch(error => {
-              console.error('Error in handleSearch:', error);
-          });
+          const searchedExercises = exerciseData.filter(
+            (item) => { return (item.target.toLowerCase().includes(search.toLowerCase())  
+              || item.name.toLowerCase().includes(search.toLowerCase()) 
+              || item.equipment.toLowerCase().includes(search.toLowerCase())
+              // || item.secondaryMuscles.filter(item=>item.toLowerCase().includes(search.toLowerCase()))
+              || item.bodyPart.toLowerCase().includes(search.toLowerCase())
+            )}
+
+            // item.name.toLowerCase().includes(search.toLowerCase()) ||
+                    // item.target.toLowerCase().includes(search.toLowerCase()) 
+                    // ||
+                    //   item.equipment.toLowerCase().includes(search.toLowerCase()) ||
+                    //   item.bodyPart.toLowerCase().includes(search.toLowerCase())
+          );
+          console.log('Exercise Data:', exerciseData);
+
+          
+
+          console.log('Searched Exercises:', searchedExercises);
+
+          // Update state with filtered exercises
+          setExercises(searchedExercises);
+        } 
+      
+      
+      
+    )
+      .catch(error => {
+        console.error('Error in handleSearch:', error);
+      });
   }
 };
+
   return (
 <Stack
   alignItems="center"
