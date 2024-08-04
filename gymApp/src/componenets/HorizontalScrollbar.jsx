@@ -5,6 +5,7 @@ import RightArrowIcon from '../assets/icons/right-arrow.png';
 import LeftArrowIcon from '../assets/icons/left-arrow.png';
 import{ Typography } from '@mui/material';
 import { useContext } from 'react';
+import ExerciseCard from './ExerciseCard';
 
 const LeftArrow = () => {
   const { scrollPrev } = useContext(VisibilityContext);
@@ -26,7 +27,8 @@ const RightArrow = () => {
   );
 };
 
-const HorizontalScrollbar = ({data,bodyParts}) => {
+const HorizontalScrollbar = ({data,isBodyPart}) => {
+  // using new prop to detect wether an exercise card or a body part
   return (
     <ScrollMenu LeftArrow={LeftArrow} RightArrow={RightArrow}>
       {data.map((item) => (
@@ -36,8 +38,7 @@ const HorizontalScrollbar = ({data,bodyParts}) => {
           title={item.id || item}
           sx={{p:'10px'}}
         >
-          <BodyPart item={item} 
-          />
+        { isBodyPart ?  <BodyPart item={item}  /> : <ExerciseCard exercise={item} /> }
         </Box>
       ))}
     </ScrollMenu>
